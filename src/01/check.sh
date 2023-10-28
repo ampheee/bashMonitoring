@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-usage=(
+USAGE=(
 "Usage: $0 /opt/test 4 az 5 az.az 3kb" "Where:" "Parameter 1 is the absolute path."
     "\tParameter 2 is the number of subfolders."
     "\tParameter 3 is a list of English alphabet letters used in folder names (no more than 7 characters)."
