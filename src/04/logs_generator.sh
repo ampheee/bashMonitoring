@@ -8,7 +8,7 @@ MIN_RECORDS_COUNT=100
 MAX_IP_OCTET=254
 MIN_IP_OCTET=1
 
-LOGS_DIR=./access_logs
+LOGS_PATH=./access_logs
 
 # INFORMATION ABOUT CODES:
 # 200 - STATUS_OK.              Response code means that the request was successful. 
@@ -51,18 +51,20 @@ url() {
   echo -n "${url}"
 }
 
-mkdir -p ${LOGS_DIR}
+mkdir -p ${LOGS_PATH}
 for ((i = 1; i <= ${FILES_COUNT}; i++))
 do
   records_count=$(($RANDOM%${MAX_RECORDS_COUNT} + ${MIN_RECORDS_COUNT}))
-  log_path=${LOGS_DIR}/log${i}.log
-  touch ${log_path}
+  log=${LOGS_PATH}/log${i}.log
+  touch ${log}
+  echo -e "${i}.Generate logs in ${log} file"
   for ((j = 0; j < records_count; j++))
   do
-    ip_addr "-" >> ${log_path}
-    timestamp ${i} >> ${log_path}
-    url ${records_count} >> ${log_path}
-    echo -n "${RESPONSES[$(( $RANDOM%${#RESPONSES[@]}))]} " >> ${log_path}
-    echo -e "\"${BROWSERS[$(( $RANDOM%${#BROWSERS[@]}))]}\"" >> ${log_path}
+    ip_addr "-" >> ${log}
+    timestamp ${i} >> ${log}
+    url ${records_count} >> ${log}
+    echo -n "${RESPONSES[$(( $RANDOM%${#RESPONSES[@]}))]} " >> ${log}
+    echo -e "\"${BROWSERS[$(( $RANDOM%${#BROWSERS[@]}))]}\"" >> ${log}
   done
+  echo -e "Done. ${records_count} logs stored in ${log}"
 done

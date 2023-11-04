@@ -1,14 +1,16 @@
 #!/bin/bash
 
-usage="This script generates log-files into access_log folder in combined format"
+USAGE="This script generates log-files into access_log folder in combined format"
+LOGS_PATH=./access_logs
+
 
 if [ $# -ne 0 ]; then
-	echo -e "Error! The script must have to no parametres passed!\n${usage}"
+	echo -e "Error! The script must have to no parametres passed!\n${USAGE}"
 	exit 1
 fi
 
-if [ -d ./access_log ]; then
-  read -p "Are you want to delete previous logs ? [Y/N]: " yn
+if [ -d ${LOGS_PATH} ]; then
+  read -p "Are you want to rewrite previous logs ? [Y/N]: " yn
   tmp_input=$(echo $yn | tr '[:upper:]' '[:lower:]')
   if [[ "$tmp_input" =~ ^(y|yes)$ ]]; then
     rm -rf access_logs
